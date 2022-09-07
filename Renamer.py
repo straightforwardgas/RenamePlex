@@ -64,11 +64,33 @@ def ChangeName(original_list, working_directory):
         user_choice = input(question1 + question2 + question3 + question4 + question5 + question6 + select_option)
 
         if user_choice == '1':
+            new_list.clear()
+            season = input('\n\nInsert Season: ')
+
+            #go file by file and insert season on name, insert to new list
             for file in original_list:
-                for i in range(len(file)):
+                for i in range(0, len(file)):
                     if file[i].isdigit() == True:
                         break
-                
+                new_list.append(file[:i] + 'S' + season + file[i:])
+
+            #print new name for user to see
+            for n in new_list:
+                print(n)
+
+            confirm = input('\nPlease confirm if name looks proper (Y/N): ')
+
+            if confirm == 'Y' or confirm == 'y':
+                for k in range(0, len(original_list)):
+                    old_name = original_list[k]
+                    new_name = new_list[k]
+                    old_file_destination = working_directory + old_name
+                    new_file_destination = working_directory + new_name
+
+                    os.rename(old_file_destination, new_file_destination)
+
+            elif confirm == 'N' or confirm == 'n':
+                break
 
         
         elif(user_choice == '2'):
@@ -76,16 +98,18 @@ def ChangeName(original_list, working_directory):
                 print(file)
 
         elif(user_choice == '3'):
-            print('test')
+            for a in new_list:
+                print(a)
 
         elif(user_choice == '4'):
             print('test')
+            print('Work in progress for Change name')
 
         elif(user_choice == '5'):
-            print('test')
+            new_list.clear()
 
         elif(user_choice == '6'):
-            print('test')
+            menu = False
 
     return
 
